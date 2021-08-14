@@ -1,3 +1,4 @@
+--[=[
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -34,27 +35,33 @@ _G.s_tab_complete = function()
     return t "<S-Tab>"
   end
 end
--- Write buffer (save)
-vim.api.nvim_set_keymap("i", "<C-s>", ":<C-u>write<CR>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<C-s>", ":<C-u>write<CR>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<C-q>", "<esc>:wq<CR>", {})
+]=]
 
-vim.api.nvim_set_keymap("i", "<C-h>", "<BS>", {})
+-- Normal
+vim.api.nvim_set_keymap("n", "<leader><leader>", ":noh<CR>", {noremap = true})
+
+-- Write buffer (save)
+vim.api.nvim_set_keymap("n", "<C-s>", "<ESC>:w<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<C-q>", "<ESC>:x<CR>", {noremap = true})
+
+vim.api.nvim_set_keymap("i", "<C-h>", "<BS>", {noremap = true})
 vim.api.nvim_set_keymap("i", "<C-d>", "<Del>", {noremap = true})
-vim.api.nvim_set_keymap("i", "<C-S>", "<esc>:w<CR>", {})
-vim.api.nvim_set_keymap("i", "<C-q>", "<esc>:wq<CR>", {})
+vim.api.nvim_set_keymap("i", "<C-s>", "<ESC>:w<CR>", {noremap = true})
+vim.api.nvim_set_keymap("i", "<C-q>", "<ESC>:x<CR>", {noremap = true})
 
 -- switch window
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", {noremap = true})
 vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", {noremap = true})
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", {noremap = true})
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", {noremap = true})
-vim.api.nvim_set_keymap("n", "<A-j>", ":Sayonara<CR>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<A-h>", ":bp<CR>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<A-l>", ":bn<CR>", {noremap = true})
+-- vim.api.nvim_set_keymap("n", "aj", ":Sayonara<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<S-Tab>", ":bp<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<Tab>", ":bn<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>ws", ":<C-u>sp<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>wv", ":<C-u>vs<CR>", {noremap = true})
 
+--[=[
+-- tab complete
 vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true, noremap = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {noremap = true, expr = true})
 vim.api.nvim_set_keymap(
@@ -116,3 +123,4 @@ vim.api.nvim_set_keymap('n', '<F5>', "<cmd>AsyncTask file-run<CR>", {})
 vim.api.nvim_set_keymap('n', '<F6>', "<cmd>AsyncTask project-run<CR>", {})
 vim.api.nvim_set_keymap('n', '<F7>', "<cmd>AsyncTask project-build<CR>", {})
 vim.api.nvim_set_keymap('n', '<F9>', "<cmd>AsyncTask file-build<CR>", {})
+]=]
