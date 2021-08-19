@@ -39,6 +39,11 @@ end
 
 -- Normal
 vim.api.nvim_set_keymap("n", "<leader><leader>", ":noh<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>mm', [[<Cmd>lua require('material.functions').toggle_style()<CR>]], {noremap = true})
+vim.api.nvim_set_keymap("n", "H", "^", {noremap = true})
+vim.api.nvim_set_keymap("n", "L", "$", {noremap = true})
+vim.api.nvim_set_keymap("n", '<C-z>', 'o<ESC>', {noremap = true})
+vim.api.nvim_set_keymap("n", '<C-x>', 'O<ESC>', {noremap = true})
 
 -- Write buffer (save)
 vim.api.nvim_set_keymap("n", "<C-s>", "<ESC>:w<CR>", {noremap = true})
@@ -55,8 +60,8 @@ vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", {noremap = true})
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", {noremap = true})
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", {noremap = true})
 -- vim.api.nvim_set_keymap("n", "aj", ":Sayonara<CR>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<S-Tab>", ":bp<CR>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<Tab>", ":bn<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<C-p>", ":bp<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<C-n>", ":bn<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>ws", ":<C-u>sp<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>wv", ":<C-u>vs<CR>", {noremap = true})
 

@@ -1,31 +1,45 @@
 local packer = nil
-local packer_compiled = vim.fn.stdpath("data") .. "/site/packer_compiled.vim"
+local packer_compiled = vim.fn.stdpath("data") .. "/site/plugin/packer_compiled.vim"
 
 local function init()
   local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
   if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.api.nvim_command("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+    vim.fn.system({"git", "clone", "https://github.com/wbthomason/packer.nvim", install_path})
   end
+
   if packer == nil then
     vim.cmd [[packadd packer.nvim]]
     packer = require("packer")
-    packer.init(
-      {
-        -- compile_path = packer_compiled,
-        git = {
-          clone_timeout = nil
-        },
-        disable_commands = true
-      }
-    )
+    packer.init({
+      compile_path = packer_compiled,
+      git = { clone_timeout = nil },
+      disable_commands = true,
+      display = {
+        open_fn = function()
+          return require('packer.util').float({ border = 'single' })
+        end
+      },
+    })
   end
+
   local use = packer.use
   packer.reset()
 
-  use {"glepnir/zephyr-nvim", config = [[vim.cmd('colorscheme zephyr')]]}
-
-  -- plugins manger
+  ---- plugins manger ----
   use {"wbthomason/packer.nvim", opt = true}
+
+  ---- colorscheme ----
+  use {"marko-cerovac/material.nvim", config = [[require("plugin-config.material")]]}
+
+  ---- statusline ----
+  use {
+    "glepnir/galaxyline.nvim",
+    requires = {"kyazdani42/nvim-web-devicons"},
+    config = [[require("plugin-config.eviline")]]
+  }
+
+--[=[
+-- unimpaired
   -- 补全
   use {
     "neovim/nvim-lspconfig",
@@ -64,13 +78,6 @@ local function init()
     requires = {"kyazdani42/nvim-web-devicons"},
     config = [[require("plugin-config.bufferline")]]
   }
-  -- 状态栏插件
-  use {
-    "glepnir/galaxyline.nvim",
-    requires = {"kyazdani42/nvim-web-devicons"},
-    config = [[require("eviline")]]
-  }
-
   -- 开屏
   use {
     "glepnir/dashboard-nvim",
@@ -264,56 +271,14 @@ local function init()
     config = [[require("plugin-config.dadod")]],
     requires = {{"tpope/vim-dadbod", opt = true}}
   }
+]=]
 end
 
-local plugins =
-  setmetatable(
-  {},
-  {
-    __index = function(_, key)
-      init()
-      return packer[key]
-    end
-  }
-)
-
-function plugins.convert_compile_file()
-  local compile_to_lua = vim.fn.stdpath("data") .. "/site/lua/_compiled.lua"
-  local lines = {}
-  local lnum = 1
-  lines[#lines + 1] = "vim.cmd [[packadd packer.nvim]]\n"
-
-  for line in io.lines(packer_compiled) do
-    lnum = lnum + 1
-    if lnum > 15 then
-      lines[#lines + 1] = line .. "\n"
-      if line == "END" then
-        break
-      end
-    end
-  end
-  table.remove(lines, #lines)
-
-  if vim.fn.filereadable(compile_to_lua) == 1 then
-    os.remove(compile_to_lua)
-  else
-    if vim.fn.isdirectory(vim.fn.stdpath("data") .. "/site/lua") ~= 1 then
-      os.execute("mkdir -p " .. vim.fn.stdpath("data") .. "/site/lua")
-    end
-  end
-
-  local file = io.open(compile_to_lua, "w")
-  for _, line in ipairs(lines) do
-    file:write(line)
-  end
-  file:close()
-
-  os.remove(packer_compiled)
-end
-
-function plugins.magic_compile()
-  plugins.compile()
-  plugins.convert_compile_file()
-end
+local plugins = setmetatable({}, {
+  __index = function(_, key)
+    init()
+    return packer[key]
+  end,
+})
 
 return plugins

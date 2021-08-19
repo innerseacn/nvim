@@ -26,6 +26,7 @@ local load_core = function()
   require("options")
   require("mapping")
 
+  -- packer commands
   vim.cmd [[command! PackerInstall packadd packer.nvim | lua require('plugins').install()]]
   vim.cmd [[command! PackerUpdate packadd packer.nvim | lua require('plugins').update()]]
   vim.cmd [[command! PackerSync packadd packer.nvim | lua require('plugins').sync()]]
