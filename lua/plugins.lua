@@ -1,5 +1,6 @@
+
 local packer = nil
-local packer_compiled = vim.fn.stdpath("data") .. "/site/plugin/packer_compiled.vim"
+local packer_compiled = vim.fn.stdpath("data") .. "/site/plugin/packer_compiled.lua"
 
 local function init()
   local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
@@ -31,12 +32,25 @@ local function init()
   ---- colorscheme ----
   use {"marko-cerovac/material.nvim", config = [[require("plugin-config.material")]]}
 
+  ---- hightlight words under cursor ----
+  use {"xiyaowong/nvim-cursorword"}
+
   ---- statusline ----
   use {
     "glepnir/galaxyline.nvim",
     requires = {"kyazdani42/nvim-web-devicons"},
     config = [[require("plugin-config.eviline")]]
   }
+
+  ---- tabline 提供 leader + number 切换buffer
+  use {
+    "akinsho/nvim-bufferline.lua",
+    requires = {"kyazdani42/nvim-web-devicons"},
+    config = [[require("plugin-config.bufferline")]]
+  }
+
+  ---- scrollbar ----
+  use {'dstein64/nvim-scrollview', config = [[require('plugin-config.nvim-scrollview')]]}
 
 --[=[
 -- unimpaired
@@ -71,13 +85,6 @@ local function init()
     }
   }
 
-  -- 标签页 状态栏
-  -- tab 栏插件 提供 leader + number 切换buffer
-  use {
-    "akinsho/nvim-bufferline.lua",
-    requires = {"kyazdani42/nvim-web-devicons"},
-    config = [[require("plugin-config.bufferline")]]
-  }
   -- 开屏
   use {
     "glepnir/dashboard-nvim",

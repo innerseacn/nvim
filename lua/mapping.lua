@@ -37,15 +37,16 @@ _G.s_tab_complete = function()
 end
 ]=]
 
--- Normal
+---- Normal ----
 vim.api.nvim_set_keymap("n", "<leader><leader>", ":noh<CR>", {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>mm', [[<Cmd>lua require('material.functions').toggle_style()<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>mm', [[:lua require('material.functions').toggle_style()<CR>]], {noremap = true})
 vim.api.nvim_set_keymap("n", "H", "^", {noremap = true})
 vim.api.nvim_set_keymap("n", "L", "$", {noremap = true})
 vim.api.nvim_set_keymap("n", '<C-z>', 'o<ESC>', {noremap = true})
 vim.api.nvim_set_keymap("n", '<C-x>', 'O<ESC>', {noremap = true})
+vim.api.nvim_set_keymap("n", '<CR>', 'i<CR><ESC>', {noremap = true})
 
--- Write buffer (save)
+---- Write buffer (save) ----
 vim.api.nvim_set_keymap("n", "<C-s>", "<ESC>:w<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<C-q>", "<ESC>:x<CR>", {noremap = true})
 
@@ -54,7 +55,7 @@ vim.api.nvim_set_keymap("i", "<C-d>", "<Del>", {noremap = true})
 vim.api.nvim_set_keymap("i", "<C-s>", "<ESC>:w<CR>", {noremap = true})
 vim.api.nvim_set_keymap("i", "<C-q>", "<ESC>:x<CR>", {noremap = true})
 
--- switch window
+---- switch window ----
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", {noremap = true})
 vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", {noremap = true})
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", {noremap = true})
@@ -64,6 +65,20 @@ vim.api.nvim_set_keymap("n", "<C-p>", ":bp<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<C-n>", ":bn<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>ws", ":<C-u>sp<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>wv", ":<C-u>vs<CR>", {noremap = true})
+
+---- bufferline ----
+vim.api.nvim_set_keymap("n", "gb", ":BufferLinePick<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "gc", ":BufferLinePickClose<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<M-1>", ":BufferLineGoToBuffer 1<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<M-2>", ":BufferLineGoToBuffer 2<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<M-3>", ":BufferLineGoToBuffer 3<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<M-4>", ":BufferLineGoToBuffer 4<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<M-5>", ":BufferLineGoToBuffer 5<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<M-6>", ":BufferLineGoToBuffer 6<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<M-7>", ":BufferLineGoToBuffer 7<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<M-8>", ":BufferLineGoToBuffer 8<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<M-9>", ":BufferLineGoToBuffer 9<CR>", {noremap = true})
+
 
 --[=[
 -- tab complete

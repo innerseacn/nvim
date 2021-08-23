@@ -8,6 +8,7 @@ local gls = gl.section
 gl.short_line_list = {"NvimTree", "vista", "dbui", "packer", "help"}
 
 ---- TODO: more smart condition.hide_in_width() ----
+---- TODO: make colors change when colorscheme executed ----
 ---- make colors compatible with material darker theme ----
 colors.bg = colors.active
 colors.violet = colors.purple
@@ -60,8 +61,8 @@ gls.left[2] = {
         vcmd("hi FileNameSeparator guifg=" .. colors.bg)
         modified_color = false
       end
-      if string.len(file) > 40 then
-        file = '..' .. string.sub(file,-40)
+      if string.len(file) > 50 then
+        file = '…' .. string.sub(file,-50)
       end
       return file
     end,
@@ -75,13 +76,14 @@ gls.left[2] = {
 
 gls.left[3] = {
   LineInfo = {
-    provider = function()
-      local line = vim.fn.line('.')
-      local totalline = vim.fn.line('$')
-      local column = vim.fn.col('.')
-      local percent = fileinfo.current_line_percent()
-      return string.format("[%d/%d]:[%d]%s", line, totalline, column, percent)
-    end,
+    provider = 'FileSize',
+    -- provider = function()
+    --   local line = vim.fn.line('.')
+    --   local totalline = vim.fn.line('$')
+    --   local column = vim.fn.col('.')
+    --   local percent = fileinfo.current_line_percent()
+    --   return string.format("[%d/%d]:[%d]%s", line, totalline, column, percent)
+    -- end,
     -- condition = condition.hide_in_width,
     -- separator = ">",
     -- separator_highlight = {"NONE", colors.bg},
@@ -234,17 +236,32 @@ gls.right[8] = {
 gls.short_line_left[1] = {
   BufferType = {
     provider = "FileTypeName",
-    separator = " ",
-    separator_highlight = {"NONE", colors.bg},
-    highlight = {colors.blue, colors.bg, 'bold'}
+    separator = "",
+    separator_highlight = {colors.blue, colors.gray},
+    highlight = {colors.bg, colors.blue, 'bold'}
   }
 }
 
 gls.short_line_left[2] = {
   SFileName = {
-    provider = "SFileName",
+    provider = function()
+      local file = vim.fn.expand('%:~:.')
+      if vim.fn.empty(file) == 1 then return '' end
+      if vim.bo.readonly == true then
+        return file .. " "
+      end
+      if vim.bo.modified then
+        return file .. ' '
+      end
+      -- if string.len(file) > 40 then
+      --   file = '..' .. string.sub(file,-40)
+      -- end
+      return file
+    end,
+    separator = "",
+    separator_highlight = {colors.gray, colors.bg},
     condition = condition.buffer_not_empty,
-    highlight = {colors.fg, colors.bg, 'bold'}
+    highlight = {colors.black, colors.gray, 'bold'}
   }
 }
 

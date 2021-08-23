@@ -45,7 +45,7 @@ local function load_options()
     -- splitright = true,
     switchbuf = "useopen",
     backspace = "indent,eol,start",
-    diffopt = "filler,iwhite,internal,algorithm:patience",
+    diffopt = "closeoff,followwrap,filler,vertical,iwhite,internal,algorithm:histogram",
     completeopt = "menu,menuone,noselect",
     jumpoptions = "stack",
     -- showmode = false,
