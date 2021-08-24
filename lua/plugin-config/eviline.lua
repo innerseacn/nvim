@@ -41,7 +41,7 @@ gls.left[1] = {
       vcmd("hi GalaxyTime guifg=" .. mode_color[vmode])
       if os.date('%H') == '23' then
         vcmd("hi GalaxyTime gui=reverse,bold")
-        vcmd("hi FileNameSeparator guifg=" .. mode_color[vmode])
+        vcmd("hi FileNameSeparator guibg=" .. mode_color[vmode])
       end
       return "▌" .. mode_alias[vmode]
     end,
@@ -51,31 +51,24 @@ gls.left[1] = {
   }
 }
 
-local modified_color = false ---- for modified color change ----
 gls.left[2] = {
   FileName = {
     provider = function()
       local file = vim.fn.expand('%:~:.')
       if vim.fn.empty(file) == 1 then return '' end
+      if string.len(file) > 50 then
+        file = '…' .. string.sub(file,-50)
+      end
       if vim.bo.readonly == true then
         return file .. " "
       end
       if vim.bo.modified then
-        if not modified_color then
-          vcmd("hi GalaxyFileName gui=reverse")
-          vcmd("hi FileNameSeparator guifg=" .. fileinfo.get_file_icon_color())
-          modified_color = true
-        end
+        vcmd("hi GalaxyFileName gui=reverse")
+        vcmd("hi FileNameSeparator guifg=" .. fileinfo.get_file_icon_color())
         return file .. ' '
       end
-      if modified_color then
-        vcmd("hi GalaxyFileName gui=none")
-        vcmd("hi FileNameSeparator guifg=" .. colors.bg)
-        modified_color = false
-      end
-      if string.len(file) > 50 then
-        file = '…' .. string.sub(file,-50)
-      end
+      vcmd("hi GalaxyFileName gui=none")
+      vcmd("hi FileNameSeparator guifg=" .. colors.bg)
       return file
     end,
     icon = fileinfo.get_file_icon,
