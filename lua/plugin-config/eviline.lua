@@ -51,6 +51,7 @@ gls.left[1] = {
   }
 }
 
+local modified_color = false ---- for modified color change ----
 gls.left[2] = {
   FileName = {
     provider = function()
@@ -63,18 +64,29 @@ gls.left[2] = {
         return file .. " "
       end
       if vim.bo.modified then
-        vcmd("hi GalaxyFileName gui=reverse")
-        vcmd("hi FileNameSeparator guifg=" .. fileinfo.get_file_icon_color())
+        if not modified_color then
+          vcmd("hi GalaxyFileName gui=reverse")
+          vcmd("hi FileNameSeparator guifg=" .. fileinfo.get_file_icon_color())
+          modified_color = true
+        end
         return file .. ' '
       end
-      vcmd("hi GalaxyFileName gui=none")
-      vcmd("hi FileNameSeparator guifg=" .. colors.bg)
+      if modified_color then
+        vcmd("hi GalaxyFileName gui=none")
+        vcmd("hi FileNameSeparator guifg=" .. colors.bg)
+        modified_color = false
+      end
       return file
     end,
     icon = fileinfo.get_file_icon,
     condition = condition.buffer_not_empty,
     separator = '',
-    separator_highlight = {colors.bg, colors.bg},
+    separator_highlight = {
+      function()
+        return vim.bo.modified and fileinfo.get_file_icon_color() or colors.bg
+      end,
+      colors.bg
+    },
     highlight = {fileinfo.get_file_icon_color, colors.bg}
   }
 }
