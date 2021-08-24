@@ -9,31 +9,43 @@ gl.short_line_list = {"NvimTree", "vista", "dbui", "packer", "help"}
 
 ---- TODO: more smart condition.hide_in_width() ----
 ---- TODO: make colors change when colorscheme executed ----
+---- TODO: add battary support ----
 ---- make colors compatible with material darker theme ----
 colors.bg = colors.active
 colors.violet = colors.purple
 colors.magenta = colors.pink
 
 ---- auto change color according the vim mode ----
-local mode_color = { n = colors.red, i = colors.green, v = colors.blue,
-  [""] = colors.blue, V = colors.blue, c = colors.yellow, no = colors.red,
-  s = colors.orange, S = colors.orange, [""] = colors.orange, ic = colors.yellow,
-  R = colors.violet, Rv = colors.violet, cv = colors.red, ce = colors.red,
-  r = colors.cyan, rm = colors.cyan, ["r?"] = colors.cyan, ["!"] = colors.red,
-  t = colors.red
+local mode_color = {
+  n = colors.red, no = colors.red, nov = colors.red, noV = colors.red, ['no'] = colors.red,
+  niI = colors.red, niR = colors.red, niV = colors.red, v = colors.blue, V = colors.blue,
+  [""] = colors.blue, s = colors.orange, S = colors.orange, [""] = colors.orange, i = colors.green,
+  ic = colors.green, ix = colors.green, R = colors.violet, Rc = colors.violet, Rv = colors.violet,
+  Rx = colors.violet, c = colors.yellow, cv = colors.yellow, ce = colors.yellow, r = colors.cyan,
+  rm = colors.cyan, ["r?"] = colors.cyan, ["!"] = colors.cyan, t = colors.cyan,
 }
 
+local mode_alias = {
+    n = 'NORMAL', no = 'O-NORMAL', nov = 'O-VISUAL', noV = 'O-VLINE', ['no'] = 'O-VBLOCK', niI = 'I-NORMAL',
+    niR = 'R-NORMAL', niV = 'VR-NORMAL', v = 'VISUAL', V = 'VLINE', [''] = 'VBLOCK', s = 'SELECT',
+    S = 'SLINE', [''] = 'SBLOCK', i = 'INSERT', ic = 'I-COMPL', ix = 'I-XCOMPL', R = 'REPLACE',
+    Rc = 'R-COMPL', Rv = 'VREPLACE', Rx = 'R-XCOMPL', c = 'COMMAND', cv = 'EX-MODE', ce = 'EX-MODE',
+    r = 'ENTER', rm = 'MORE', ['r?'] = 'CONFIRM', ['!'] = 'SHELL', t = 'TERM', ['null'] = 'NONE',
+}
+
+local vmode
 gls.left[1] = {
   Time = {
     provider = function()
-      vcmd("hi GalaxyTime guifg=" .. mode_color[vim.fn.mode()])
+      vmode = vim.fn.mode(1)
+      vcmd("hi GalaxyTime guifg=" .. mode_color[vmode])
       if os.date('%H') == '23' then
         vcmd("hi GalaxyTime gui=reverse,bold")
-        vcmd("hi FileNameSeparator guibg=" .. mode_color[vim.fn.mode()])
+        vcmd("hi FileNameSeparator guifg=" .. mode_color[vmode])
       end
-      return "▌  " .. os.date('[%H:%M]')
+      return "▌" .. mode_alias[vmode]
     end,
-    separator = '',
+    separator = '',
     separator_highlight = 'FileNameSeparator',
     highlight = {"none", colors.bg, 'bold'}
   }
@@ -68,7 +80,7 @@ gls.left[2] = {
     end,
     icon = fileinfo.get_file_icon,
     condition = condition.buffer_not_empty,
-    separator = '',
+    separator = '',
     separator_highlight = {colors.bg, colors.bg},
     highlight = {fileinfo.get_file_icon_color, colors.bg}
   }
@@ -76,7 +88,9 @@ gls.left[2] = {
 
 gls.left[3] = {
   LineInfo = {
-    provider = 'FileSize',
+    provider = function()
+      return os.date('[%H:%M]')
+    end,
     -- provider = function()
     --   local line = vim.fn.line('.')
     --   local totalline = vim.fn.line('$')
@@ -87,7 +101,7 @@ gls.left[3] = {
     -- condition = condition.hide_in_width,
     -- separator = ">",
     -- separator_highlight = {"NONE", colors.bg},
-    highlight = {colors.gray, colors.bg}
+    highlight = {colors.gray, colors.bg, 'bold'}
   }
 }
 
@@ -132,7 +146,7 @@ gls.left[7] = {
 gls.left[8] = {
   MidSpace = {
     provider = function()
-      vcmd("hi GalaxyMidSpace guibg=" .. mode_color[vim.fn.mode()])
+      vcmd("hi GalaxyMidSpace guibg=" .. mode_color[vmode])
       return ""
     end,
   }
@@ -258,7 +272,7 @@ gls.short_line_left[2] = {
       -- end
       return file
     end,
-    separator = "",
+    separator = "",
     separator_highlight = {colors.gray, colors.bg},
     condition = condition.buffer_not_empty,
     highlight = {colors.black, colors.gray, 'bold'}

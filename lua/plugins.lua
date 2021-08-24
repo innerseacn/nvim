@@ -42,7 +42,7 @@ local function init()
     config = [[require("plugin-config.eviline")]]
   }
 
-  ---- tabline 提供 leader + number 切换buffer
+  ---- bufferline ----
   use {
     "akinsho/nvim-bufferline.lua",
     requires = {"kyazdani42/nvim-web-devicons"},
@@ -52,8 +52,8 @@ local function init()
   ---- scrollbar ----
   use {'dstein64/nvim-scrollview', config = [[require('plugin-config.nvim-scrollview')]]}
 
---[=[
--- unimpaired
+  --[=[
+  -- unimpaired
   -- 补全
   use {
     "neovim/nvim-lspconfig",
