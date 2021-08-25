@@ -48,11 +48,12 @@ map("n", "L", "$", opts)
 map("n", '<C-z>', 'o<ESC>', opts)
 map("n", '<C-x>', 'O<ESC>', opts)
 map("n", '<CR>', 'i<CR><ESC>', opts)
+map('i', '<M-n>', '<C-n>', opts)
+map('i', '<M-p>', '<C-p>', opts)
 
 ---- Write buffer (save) ----
 map("n", "<C-s>", "<ESC>:w<CR>", opts)
 map("n", "<C-q>", "<ESC>:x<CR>", opts)
-
 map("i", "<C-h>", "<BS>", opts)
 map("i", "<C-d>", "<Del>", opts)
 map("i", "<C-s>", "<ESC>:w<CR>", opts)
@@ -64,8 +65,8 @@ map("n", "<C-l>", "<C-w>l", opts)
 map("n", "<C-j>", "<C-w>j", opts)
 map("n", "<C-k>", "<C-w>k", opts)
 -- map("n", "aj", ":Sayonara<CR>", opts)
-map("n", "<M-,>", ":bp<CR>", opts)
-map("n", "<M-.>", ":bn<CR>", opts)
+map("n", "<C-p>", ":bp<CR>", opts)
+map("n", "<C-n>", ":bn<CR>", opts)
 
 ---- bufferline ----
 map("n", "<M-b>", ":BufferLinePick<CR>", opts)
