@@ -1,6 +1,9 @@
-
 local packer = nil
 local packer_compiled = vim.fn.stdpath("data") .. "/site/plugin/packer_compiled.lua"
+
+local function edit_compiled()
+  vim.cmd("edit " .. packer_compiled)
+end
 
 local function init()
   local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
@@ -26,31 +29,68 @@ local function init()
   local use = packer.use
   packer.reset()
 
+  ------------------------
   ---- plugins manger ----
+  ------------------------
   use {"wbthomason/packer.nvim", opt = true}
 
-  ---- colorscheme ----
-  use {"marko-cerovac/material.nvim", config = [[require("plugin-config.material")]]}
-
-  ---- hightlight words under cursor ----
-  use {"xiyaowong/nvim-cursorword"}
-
-  ---- statusline ----
-  use {
+  ------------
+  ---- UI ----
+  ------------
+  use { ---- colorscheme ----
+    "marko-cerovac/material.nvim",
+    config = [[require("plugin-config.material")]]
+  }
+  use { --- colorizer ----
+    "norcalli/nvim-colorizer.lua",
+    config = [[require("plugin-config.nvim-colorizer")]],
+    ft = {
+      "html", "css", "sass", "scss", "vim", "javascript", "javascriptreact",
+      "typescript", "typescriptreact", "vue", "lua"
+    }
+  }
+  use { ---- hightlight words under cursor ----
+    "xiyaowong/nvim-cursorword"
+  }
+  use { ---- statusline ----
     "glepnir/galaxyline.nvim",
     requires = {"kyazdani42/nvim-web-devicons"},
     config = [[require("plugin-config.eviline")]]
   }
-
-  ---- bufferline ----
-  use {
+  use { ---- bufferline ----
     "akinsho/nvim-bufferline.lua",
     requires = {"kyazdani42/nvim-web-devicons"},
-    config = [[require("plugin-config.bufferline")]]
+    config = [[require("plugin-config.bufferline")]],
+    events = {'BufNew'}
   }
-
-  ---- scrollbar ----
-  use {'dstein64/nvim-scrollview', config = [[require('plugin-config.nvim-scrollview')]]}
+  use { ---- scrollbar ----
+    'dstein64/nvim-scrollview',
+    config = [[require('plugin-config.scrollview')]]
+  }
+  use { --- indent ----
+    "lukas-reineke/indent-blankline.nvim",
+    config = [[require("plugin-config.indent-blankline")]],
+    ft = {
+      'lua',
+      -- "go", "typescript", "javascript", "vim", "rust", "zig", "c",
+      -- "cpp", "vue", "typescriptreact", "javascriptreact"
+    }
+  }
+  use { ---- dim inactive windows ----
+    'sunjon/Shade.nvim',
+    config = [[require('plugin-config.Shade')]],
+    event = {'WinNew'}
+  }
+  -- use { ---- highlights ranges in commandline ----
+  --   'winston0410/range-highlight.nvim',
+  --   requires = {'winston0410/cmd-parser.nvim'},
+  --   config = [[require('plugin-config.range-highlight')]]
+  -- }
+  use { ---- tree view ----
+    "kyazdani42/nvim-tree.lua",
+    requires = {"kyazdani42/nvim-web-devicons"},
+    config = [[require("plugin-config.nvim-tree")]]
+  }
 
   --[=[
   -- unimpaired
@@ -139,38 +179,7 @@ local function init()
     keys = {{"v", "sa"}, {"v", "sr"}, {"v", "sd"}}
   }
   use {"mhinz/vim-sayonara", cmd = "Sayonara"}
-  -- 缩进线插件
-  use {
-    "lukas-reineke/indent-blankline.nvim",
-    branch = "lua",
-    config = [[requrie("indent-blankline")]],
-    event = {"BufReadPre", "BufNewFile"}
-  }
-  -- 当前光标下划线 高亮
-  use {
-    "itchyny/vim-cursorword",
-    event = {"BufRead", "BufNewFile"},
-    config = [[require("plugin-config.vim-cursorword")]]
-  }
 
-  -- 颜色荧光笔
-  use {
-    "norcalli/nvim-colorizer.lua",
-    config = [[require("plugin-config.nvim-colorizer")]],
-    ft = {
-      "html",
-      "css",
-      "sass",
-      "scss",
-      "vim",
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-      "vue",
-      "lua"
-    }
-  }
 
   -- fuzzyfind 模糊搜索
   use {
@@ -193,12 +202,6 @@ local function init()
     },
     config = [[require("plugin-config.treesitter")]]
   }
-
-  -- 文件管理
-  -- use {
-  --   "kyazdani42/nvim-tree.lua",
-  --   config = [[require("plugin-config.nvim-tree")]]
-  -- }
 
   -- git信息展示 :SignifyDiff
   use {
@@ -281,7 +284,7 @@ local function init()
 ]=]
 end
 
-local plugins = setmetatable({}, {
+local plugins = setmetatable({edit_compiled = edit_compiled}, {
   __index = function(_, key)
     init()
     return packer[key]

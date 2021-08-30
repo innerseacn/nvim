@@ -9,6 +9,9 @@
   vim.g.material_style = 'darker'
   require('material').set()
 
+  ---- color hack for tabs ----
+  vim.cmd [[highlight! link Whitespace NonText]]
+
 
 
 

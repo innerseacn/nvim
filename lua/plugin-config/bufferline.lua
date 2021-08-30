@@ -1,7 +1,7 @@
   require "bufferline".setup {
     options = {
       always_show_bufferline = false,
-      modified_icon = '✥',
+      -- modified_icon = '✥',
       buffer_close_icon= "",
       close_icon = "",
       diagnostics = "nvim_lsp",
@@ -11,8 +11,10 @@
       end,
       show_tab_indicators = true,
       -- view = "multiwindow" | "default",
-      numbers = "ordinal",
-      number_style = {"", ""}, -- buffer_id at index 1, ordinal at index 2
+      numbers = function(opts)
+        return string.format('%s%s', opts.ordinal, opts.raise(opts.id))
+      end,
+      -- number_style = {"", ""}, -- buffer_id at index 1, ordinal at index 2
       -- mappings = true | false,
       -- left_trunc_marker = "",
       -- right_trunc_marker = "",

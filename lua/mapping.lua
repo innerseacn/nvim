@@ -65,8 +65,8 @@ map("n", "<C-l>", "<C-w>l", opts)
 map("n", "<C-j>", "<C-w>j", opts)
 map("n", "<C-k>", "<C-w>k", opts)
 -- map("n", "aj", ":Sayonara<CR>", opts)
-map("n", "<C-p>", ":bp<CR>", opts)
-map("n", "<C-n>", ":bn<CR>", opts)
+map("n", "<M-p>", ":bp<CR>", opts)
+map("n", "<M-n>", ":bn<CR>", opts)
 
 ---- bufferline ----
 map("n", "<M-b>", ":BufferLinePick<CR>", opts)
@@ -81,7 +81,9 @@ map("n", "<M-7>", ":BufferLineGoToBuffer 7<CR>", opts)
 map("n", "<M-8>", ":BufferLineGoToBuffer 8<CR>", opts)
 map("n", "<M-9>", ":BufferLineGoToBuffer 9<CR>", opts)
 
-
+---- tree view ---- 
+map("n", "\\", ":<C-u>NvimTreeToggle<CR>", opts)
+map("n", "<Leader>F", ":<C-u>NvimTreeFindFile<CR>", opts)
 --[=[
 -- tab complete
 map("i", "<Tab>", "v:lua.tab_complete()", {expr = true, noremap = true})
@@ -109,34 +111,31 @@ map("t", "<A-d>", [[<C-\><C-n>:Lspsaga close_floaterm<CR>]], opts)
 map("n", "<Leader>g", ":Lspsaga open_floaterm lazygit<CR>", opts)
 
 -- fuzzyfind 模糊搜索 快捷键
-map("n", "<Leader>bb", ":<C-u>Telescope buffers<CR>", {silent = true, noremap = true})
-map("n", "<Leader>fa", ":<C-u>Telescope live_grep<CR>", {silent = true, noremap = true})
-map("n", "<Leader>ff", ":<C-u>Telescope find_files<CR>", {silent = true, noremap = true})
-map("n", "<Leader>fh", ":<C-u>DashboardFindHistory<CR>", {silent = true, noremap = true})
+map("n", "<Leader>bb", ":<C-u>Telescope buffers<CR>", opts)
+map("n", "<Leader>fa", ":<C-u>Telescope live_grep<CR>", opts)
+map("n", "<Leader>ff", ":<C-u>Telescope find_files<CR>", opts)
+map("n", "<Leader>fh", ":<C-u>DashboardFindHistory<CR>", opts)
 
-map("n", "<Leader>tf", ":<C-u>DashboardNewFile<CR>", {silent = true, noremap = true})
+map("n", "<Leader>tf", ":<C-u>DashboardNewFile<CR>", opts)
 
--- 文件管理
-map("n", "<Leader>e", ":<C-u>NvimTreeToggle<CR>", {silent = true, noremap = true})
-map("n", "<Leader>F", ":<C-u>NvimTreeFindFile<CR>", {silent = true, noremap = true})
 
 -- Vista
-map("n", "<Leader>v", ":<C-u>Vista!!<CR>", {silent = true, noremap = true})
+map("n", "<Leader>v", ":<C-u>Vista!!<CR>", opts)
 
 -- LSP
-map("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", {silent = true, noremap = true})
-map("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", {silent = true, noremap = true})
-map("n", "K", "<cmd>Lspsaga hover_doc<CR>", {silent = true, noremap = true})
-map("n", "gd", "<cmd>Lspsaga preview_definition<CR>", {silent = true, noremap = true})
-map("n", "gD", "<cmd>lua vim.lsp.buf.implementation<CR>", {silent = true, noremap = true})
-map("n", "gs", "<cmd>Lspsaga signature_help<CR>", {silent = true, noremap = true})
-map("n", "gr", "<cmd>Lspsaga rename<CR>", {silent = true, noremap = true})
-map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {silent = true, noremap = true})
-map("n", "gw", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", {silent = true, noremap = true})
-map("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", {silent = true, noremap = true})
-map("n", "ga", "<cmd>Lspsaga code_action<CR>", {silent = true, noremap = true})
-map("v", "ga", "<cmd>Lspsaga range_code_action<CR>", {silent = true, noremap = true})
-map("n", "<Leader>ce", "Lspsaga show_line_diagnostics", {silent = true, noremap = true})
+map("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+map("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+map("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+map("n", "gd", "<cmd>Lspsaga preview_definition<CR>", opts)
+map("n", "gD", "<cmd>lua vim.lsp.buf.implementation<CR>", opts)
+map("n", "gs", "<cmd>Lspsaga signature_help<CR>", opts)
+map("n", "gr", "<cmd>Lspsaga rename<CR>", opts)
+map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+map("n", "gw", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
+map("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opts)
+map("n", "ga", "<cmd>Lspsaga code_action<CR>", opts)
+map("v", "ga", "<cmd>Lspsaga range_code_action<CR>", opts)
+map("n", "<Leader>ce", "Lspsaga show_line_diagnostics", opts)
 
 map("n", "j", "<Plug>(accelerated_jk_gj)", {silent = true})
 map("n", "k", "<Plug>(accelerated_jk_gk)", {silent = true})

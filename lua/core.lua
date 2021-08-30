@@ -32,14 +32,14 @@ local load_core = function()
   vim.cmd [[command! PackerSync packadd packer.nvim | lua require('plugins').sync()]]
   vim.cmd [[command! PackerClean packadd packer.nvim | lua require('plugins').clean()]]
   vim.cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compile()]]
+  vim.cmd [[command! EditCompile packadd packer.nvim | lua require('plugins').edit_compiled()]]
 
   ---- autocmds ----
   vim.cmd [[augroup INNERSEA
-      autocmd!
-      autocmd BufEnter * normal `"
-      autocmd TextYankPost * lua vim.highlight.on_yank {higroup='IncSearch',timeout=150}
-    augroup END]]
-
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+    autocmd TextYankPost * lua vim.highlight.on_yank {higroup='IncSearch',timeout=150}
+  augroup END]]
 end
 
 load_core()

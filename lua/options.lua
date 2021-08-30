@@ -61,7 +61,7 @@ local function load_options()
     pumheight = 15,
     helpheight = 12,
     previewheight = 12,
-    -- showcmd = false,
+    showcmd = false,
     -- cmdheight = 2,
     cmdwinheight = 5,
     -- cmdheight = 2,
