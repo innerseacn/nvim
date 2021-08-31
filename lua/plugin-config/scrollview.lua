@@ -1,2 +1,12 @@
 -- vim.g.scrollview_excluded_filetypes = ['nerdtree']
-vim.g.scrollview_winblend = 20
+-- vim.g.scrollview_on_startup = 0
+-- vim.g.scrollview_mode = simple
+-- vim.g.scrollview_current_only = 1
+-- vim.g.scrollview_base = left
+-- vim.g.scrollview_column = 1
+-- vim.g.scrollview_auto_workarounds = 0
+-- vim.g.scrollview_refresh_time = 100
+-- vim.g.scrollview_character = ''
+-- vim.g.scrollview_hide_on_intersect = 1
+vim.g.scrollview_auto_mouse = 0
+vim.g.scrollview_winblend = 10

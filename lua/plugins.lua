@@ -55,13 +55,14 @@ local function init()
   use { ---- statusline ----
     "glepnir/galaxyline.nvim",
     requires = {"kyazdani42/nvim-web-devicons"},
+    after = 'material.nvim',
     config = [[require("plugin-config.eviline")]]
   }
   use { ---- bufferline ----
     "akinsho/nvim-bufferline.lua",
     requires = {"kyazdani42/nvim-web-devicons"},
     config = [[require("plugin-config.bufferline")]],
-    events = {'BufNew'}
+    event = 'BufNew *'
   }
   use { ---- scrollbar ----
     'dstein64/nvim-scrollview',
@@ -79,7 +80,7 @@ local function init()
   use { ---- dim inactive windows ----
     'sunjon/Shade.nvim',
     config = [[require('plugin-config.Shade')]],
-    event = {'WinNew'}
+    event = 'WinNew *'
   }
   -- use { ---- highlights ranges in commandline ----
   --   'winston0410/range-highlight.nvim',
@@ -89,7 +90,8 @@ local function init()
   use { ---- tree view ----
     "kyazdani42/nvim-tree.lua",
     requires = {"kyazdani42/nvim-web-devicons"},
-    config = [[require("plugin-config.nvim-tree")]]
+    config = [[require("plugin-config.nvim-tree")]],
+    event = 'CmdUndefined NvimTreeToggle'
   }
 
   --[=[
