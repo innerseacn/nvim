@@ -53,7 +53,7 @@ map('i', '<M-p>', '<C-p>', opts)
 
 ---- Write buffer (save) ----
 map("n", "<C-s>", "<ESC>:w<CR>", opts)
-map("n", "<C-q>", "<ESC>:x<CR>", opts)
+map("n", "<C-q>", "<ESC>:q<CR>", opts)
 map("i", "<C-h>", "<BS>", opts)
 map("i", "<C-d>", "<Del>", opts)
 map("i", "<C-s>", "<ESC>:w<CR>", opts)
