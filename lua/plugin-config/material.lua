@@ -1,17 +1,31 @@
-  vim.g.material_italic_comments = true
-  -- vim.g.material_italic_keywords = true
-  -- vim.g.material_italic_functions = true
-  -- vim.g.material_italic_variables = true
-  -- vim.g.material_italic_strings = true
-  -- vim.g.material_contrast = true
-  -- vim.g.material_borders = false
-  -- vim.g.material_disable_background = false
-  vim.g.material_style = 'darker'
-  require('material').set()
+-- Theme style
+vim.g.material_style = 'darker'
 
-  ---- color hack for tabs ----
-  vim.cmd [[highlight! link Whitespace NonText]]
+-- Colorscheme settings
+require('material').setup({
+  contrast = true,
+  borders = false,
+  italics = {
+    comments = true,
+    strings = false,
+    keywords = true,
+    functions = true,
+    variables = false
+  },
+  contrast_windows = {
+    "terminal",
+    "packer",
+    "qf",
+  },
+  disable = {
+    background = false,
+    term_colors = false,
+    eob_lines = false
+  },
+})
 
+-- Apply the colorscheme
+vim.cmd[[colorscheme material]]
 
 
 

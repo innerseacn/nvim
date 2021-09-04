@@ -62,7 +62,6 @@ local function init()
     "akinsho/nvim-bufferline.lua",
     requires = {"kyazdani42/nvim-web-devicons"},
     config = [[require("plugin-config.bufferline")]],
-    event = 'BufNew *'
   }
   use { ---- scrollbar ----
     'dstein64/nvim-scrollview',
@@ -91,7 +90,9 @@ local function init()
     "kyazdani42/nvim-tree.lua",
     requires = {"kyazdani42/nvim-web-devicons"},
     config = [[require("plugin-config.nvim-tree")]],
-    event = 'CmdUndefined NvimTreeToggle'
+    -- event = 'CmdUndefined NvimTreeToggle'
+    event = 'VimEnter'
+    -- cmd = 'NvimTreeToggle'
   }
 
   --[=[
