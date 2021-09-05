@@ -1,4 +1,4 @@
--- vim.g.scrollview_excluded_filetypes = ['nerdtree']
+vim.g.scrollview_excluded_filetypes = {}
 -- vim.g.scrollview_on_startup = 0
 -- vim.g.scrollview_mode = simple
 -- vim.g.scrollview_current_only = 1

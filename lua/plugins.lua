@@ -65,21 +65,22 @@ local function init()
   }
   use { ---- scrollbar ----
     'dstein64/nvim-scrollview',
-    config = [[require('plugin-config.scrollview')]]
+    config = [[require('plugin-config.scrollview')]],
+    event = 'BufEnter'
   }
   use { --- indent ----
     "lukas-reineke/indent-blankline.nvim",
     config = [[require("plugin-config.indent-blankline")]],
     ft = {
-      'lua',
-      -- "go", "typescript", "javascript", "vim", "rust", "zig", "c",
+      'lua', 'vim',
+      -- "go", "typescript", "javascript", "rust", "zig", "c",
       -- "cpp", "vue", "typescriptreact", "javascriptreact"
     }
   }
   use { ---- dim inactive windows ----
     'sunjon/Shade.nvim',
     config = [[require('plugin-config.Shade')]],
-    event = 'WinNew *'
+    event = 'WinNew'
   }
   -- use { ---- highlights ranges in commandline ----
   --   'winston0410/range-highlight.nvim',
@@ -91,8 +92,7 @@ local function init()
     requires = {"kyazdani42/nvim-web-devicons"},
     config = [[require("plugin-config.nvim-tree")]],
     -- event = 'CmdUndefined NvimTreeToggle'
-    event = 'VimEnter'
-    -- cmd = 'NvimTreeToggle'
+    cmd = 'NvimTreeToggle'
   }
 
   --[=[
